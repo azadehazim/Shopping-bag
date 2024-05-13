@@ -1,17 +1,23 @@
 import { fetchData } from "../utils/httpReq.js";
 
 
-
 const productsNode=document.getElementById("products");
+let chosenProducts=[];
+
+
 
 
 
 async function render(){
     const productsData=await fetchData();
+    
     console.log(productsData);
     showProducts(productsData);
 
+    
     productsNode.addEventListener("click",handleEvent);
+    
+
    
 }
 
@@ -19,9 +25,10 @@ async function render(){
 
 
 
-
 function showProducts(productsData){
     productsData.forEach(product=>createCard(product));
+
+  
 }
 
 function createCard(product){
@@ -49,25 +56,38 @@ function createCard(product){
 
    productsNode.appendChild(cardEle);
 
+
 }
 
 
 
-function handleEvent(event){
+async function handleEvent(event){
+
+    const productsData=await fetchData();
+
+    //console.log(event.target);
+
     if(event.target.tagName==="BUTTON"){
         console.log("hi");
-        addToCart(event.target.dataset.id);
+        
+        //console.log(productsData);
+        addToCart(event.target.dataset.id,productsData);
+        
+
+        
     }
 }
 
 
-function addToCart(id){
-    console.log(id);
+
+function addToCart(id,productsData){
+    const chosenProduct=productsData.find(i=>i.id===+id);
+    //console.log(chosenProduct);
+    chosenProducts.push(chosenProduct);
+    console.log(chosenProducts);
 }
 
 
 
-
-
-
 document.addEventListener("DOMContentLoaded",render);
+
