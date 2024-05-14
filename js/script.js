@@ -4,6 +4,9 @@ import { fetchData } from "../utils/httpReq.js";
 const productsNode=document.getElementById("products");
 let chosenProducts=[];
 
+const cartListNode=document.getElementById("cart-list");
+const totalPriceNode=document.getElementById("total-price").querySelector("span");
+
 
 
 
@@ -11,11 +14,11 @@ let chosenProducts=[];
 async function render(){
     const productsData=await fetchData();
     
-    console.log(productsData);
+    //console.log(productsData);
     showProducts(productsData);
-
     
     productsNode.addEventListener("click",handleEvent);
+
     
 
    
@@ -65,16 +68,9 @@ async function handleEvent(event){
 
     const productsData=await fetchData();
 
-    //console.log(event.target);
-
     if(event.target.tagName==="BUTTON"){
         console.log("hi");
-        
-        //console.log(productsData);
         addToCart(event.target.dataset.id,productsData);
-        
-
-        
     }
 }
 
@@ -84,8 +80,22 @@ function addToCart(id,productsData){
     const chosenProduct=productsData.find(i=>i.id===+id);
     //console.log(chosenProduct);
     chosenProducts.push(chosenProduct);
+
     console.log(chosenProducts);
+
+    const ids = chosenProducts.map(({ id }) => id);
+    const showArray = chosenProducts.filter(({ id }, index) => !ids.includes(id, index + 1));
+
+    console.log(showArray);
+
 }
+
+
+
+
+
+
+
 
 
 
