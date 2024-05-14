@@ -3,6 +3,8 @@ import { fetchData } from "../utils/httpReq.js";
 
 const productsNode=document.getElementById("products");
 let chosenProducts=[];
+let showArray=[];
+
 
 const cartListNode=document.getElementById("cart-list");
 const totalPriceNode=document.getElementById("total-price").querySelector("span");
@@ -84,11 +86,21 @@ function addToCart(id,productsData){
     //console.log(productsData);
     //console.log(chosenProduct);
     chosenProducts.push(chosenProduct);
+    
 
     //console.log(chosenProducts);
 
+    showCard(chosenProducts,cartListNode)
+
+
+
+}
+
+
+function showCard(chosenProducts,cartListNode){
+
     const ids = chosenProducts.map(({ id }) => id);
-    const showArray = chosenProducts.filter(({ id }, index) => !ids.includes(id, index + 1));
+    showArray = chosenProducts.filter(({ id }, index) => !ids.includes(id, index + 1));
 
     //console.log(showArray);
 
@@ -101,9 +113,6 @@ function addToCart(id,productsData){
         
     
     });
-
-
-
 }
 
 
@@ -165,26 +174,53 @@ async function handleEvent2(event){
             break;
         case "-":
             console.log("-");
-            //this.decrease(id);
+            decrease(id,chosenProducts,cartListNode);
             break;
-        case "Remove":
-            console.log("bye");
-            //this.remove(id);
-            break;
+        // case "Remove":
+        //     console.log("bye");
+        //     remove(id,chosenProducts,cartListNode);
+        //     break;
     }
 
 
 
     function increase(id,productsData){
-    
 
         addToCart(id,productsData);
     
-    };
+    }
 
 
 
+
+    function decrease(id,chosenProducts,cartListNode){
+
+        const index=chosenProducts.findIndex(p=>p.id===+id);
+        //console.log(index);
+
+        chosenProducts.splice(index,1);
+
+        //console.log(chosenProducts);
+
+        showCard(chosenProducts,cartListNode);
+
+    }
     
+
+    // function remove(id,chosenProducts,cartListNode){
+
+    //     const newProducts=chosenProducts.filter(p=>p.id!==+id);
+    //     chosenProducts=newProducts;
+
+    //     console.log(chosenProducts);
+
+    //     showCard(chosenProducts,cartListNode);
+    // }
+
+
+
+
+
 
 }
 
