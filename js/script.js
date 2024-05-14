@@ -72,6 +72,9 @@ async function handleEvent(event){
         console.log("hi");
         addToCart(event.target.dataset.id,productsData);
     }
+
+    cartListNode.addEventListener("click",handleEvent2);
+
 }
 
 
@@ -100,7 +103,11 @@ function addToCart(id,productsData){
     });
 
 
-    function createFinalCard(product,qty,cartListNode){
+
+}
+
+
+function createFinalCard(product,qty,cartListNode){
 
     //     //console.log(product);
     //     //console.log(qty);
@@ -142,11 +149,45 @@ function addToCart(id,productsData){
 
 
 
+async function handleEvent2(event){
+
+    const productsData=await fetchData();
+
+    const tagName=event.target.tagName;
+    const id=event.target.dataset.id;
+    const type=event.target.innerText;
+    if(tagName!=="BUTTON") return;
+    //console.log("gyhbgjyhg")
+    switch(type){
+        case "+":
+            //console.log("+");
+            increase(id,productsData);
+            break;
+        case "-":
+            console.log("-");
+            //this.decrease(id);
+            break;
+        case "Remove":
+            console.log("bye");
+            //this.remove(id);
+            break;
+    }
 
 
 
+    function increase(id,productsData){
+    
+
+        addToCart(id,productsData);
+    
+    };
+
+
+
+    
 
 }
+
 
 
 
