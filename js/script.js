@@ -78,15 +78,73 @@ async function handleEvent(event){
 
 function addToCart(id,productsData){
     const chosenProduct=productsData.find(i=>i.id===+id);
+    //console.log(productsData);
     //console.log(chosenProduct);
     chosenProducts.push(chosenProduct);
 
-    console.log(chosenProducts);
+    //console.log(chosenProducts);
 
     const ids = chosenProducts.map(({ id }) => id);
     const showArray = chosenProducts.filter(({ id }, index) => !ids.includes(id, index + 1));
 
-    console.log(showArray);
+    //console.log(showArray);
+
+    cartListNode.innerHTML="";
+
+
+    showArray.forEach(product=>{
+        const qty=chosenProducts.filter(p=>p.id===product.id).length;
+        createFinalCard(product,qty,cartListNode);
+        
+    
+    });
+
+
+    function createFinalCard(product,qty,cartListNode){
+
+    //     //console.log(product);
+    //     //console.log(qty);
+
+        const cardEle=document.createElement("div");
+
+        const {name,price,image,alt,id}=product;
+        const imgJSX=`<img alt=${alt} src=${image}>`;
+
+        cardEle.innerHTML=imgJSX;
+
+        const infoJSX=`
+        <div id="cart-info">
+            <h4>${name}</h4>
+            <p>${price}</p>
+        </div>
+        `;
+
+        cardEle.innerHTML+=infoJSX;
+
+        const controlJSX=`
+        <div id="cart-control">
+            <div>
+                <button data-id=${id}>-</button>
+                <span>${qty}</span>
+                <button data-id=${id}>+</button>
+            </div>
+            <button data-id=${id}>Remove</button>
+        </div>
+        `;
+
+        cardEle.innerHTML+=controlJSX;
+
+
+        cartListNode.appendChild(cardEle)
+    }
+
+
+
+
+
+
+
+
 
 }
 
