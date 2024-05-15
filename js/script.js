@@ -4,6 +4,7 @@ import { fetchData } from "../utils/httpReq.js";
 const productsNode=document.getElementById("products");
 let chosenProducts=[];
 let showArray=[];
+//let newProducts=[];
 
 
 const cartListNode=document.getElementById("cart-list");
@@ -21,6 +22,8 @@ async function render(){
     
     productsNode.addEventListener("click",handleEvent);
 
+   
+    cartListNode.addEventListener("click",handleEvent2);
     
 
    
@@ -30,13 +33,13 @@ async function render(){
 
 
 
-function showProducts(productsData){
+async function showProducts(productsData){
     productsData.forEach(product=>createCard(product));
 
   
 }
 
-function createCard(product){
+async function createCard(product){
     const cardEle=document.createElement("div");
 
     const {image,alt}=product;
@@ -74,14 +77,19 @@ async function handleEvent(event){
         console.log("hi");
         addToCart(event.target.dataset.id,productsData);
     }
+    else{
+        return
+    }
 
-    cartListNode.addEventListener("click",handleEvent2);
+    //return chosenProducts;
+
+    //cartListNode.addEventListener("click",handleEvent2);
 
 }
 
 
 
-function addToCart(id,productsData){
+async function addToCart(id,productsData){
     const chosenProduct=productsData.find(i=>i.id===+id);
     //console.log(productsData);
     //console.log(chosenProduct);
@@ -97,7 +105,8 @@ function addToCart(id,productsData){
 }
 
 
-function showCard(chosenProducts,cartListNode){
+async function showCard(chosenProducts,cartListNode){
+    //console.log(chosenProducts);
 
     const ids = chosenProducts.map(({ id }) => id);
     showArray = chosenProducts.filter(({ id }, index) => !ids.includes(id, index + 1));
@@ -116,7 +125,7 @@ function showCard(chosenProducts,cartListNode){
 }
 
 
-function createFinalCard(product,qty,cartListNode){
+async function createFinalCard(product,qty,cartListNode){
 
     //     //console.log(product);
     //     //console.log(qty);
@@ -158,9 +167,11 @@ function createFinalCard(product,qty,cartListNode){
 
 
 
-async function handleEvent2(event){
+async function handleEvent2(event,productsData){
 
-    const productsData=await fetchData();
+    // console.log(chosenProducts);
+
+    productsData=await fetchData();
 
     const tagName=event.target.tagName;
     const id=event.target.dataset.id;
@@ -171,57 +182,100 @@ async function handleEvent2(event){
         case "+":
             //console.log("+");
             increase(id,productsData);
+            //return chosenProducts;
             break;
         case "-":
             console.log("-");
             decrease(id,chosenProducts,cartListNode);
+            //return chosenProducts;
             break;
-        // case "Remove":
-        //     console.log("bye");
-        //     remove(id,chosenProducts,cartListNode);
-        //     break;
+        case "Remove":
+            console.log("bye");
+            remove(id,chosenProducts,cartListNode);
+            //return chosenProducts;
+            break;
     }
 
+    //console.log(event.target.tagName);
+    //console.log(chosenProducts);
 
 
-    function increase(id,productsData){
+//return chosenProducts;
 
-        addToCart(id,productsData);
-    
+
+}
+
+
+async function increase(id,productsData){
+
+    addToCart(id,productsData);
+
+}
+
+
+
+
+async function decrease(id,chosenProducts,cartListNode){
+
+    const index=chosenProducts.findIndex(p=>p.id===+id);
+    //console.log(index);
+
+    chosenProducts.splice(index,1);
+
+    //console.log(chosenProducts);
+
+    showCard(chosenProducts,cartListNode);
+
+}
+
+
+async function remove(id,chosenProducts,cartListNode){
+
+    // console.log(chosenProducts.length);
+
+    let j=chosenProducts.length;
+    do{
+        let index=chosenProducts.findIndex(p=>p.id===+id);
+            if(index>=0){
+            chosenProducts.splice(index,1);
+            }
+        j--
     }
+    while(j>0)
 
 
+    // console.log(chosenProducts.length);
+
+    // console.log(chosenProducts);
+
+    // let i=0;
+
+    // chosenProducts.forEach((product,index)=>{
+    //     if(product.id===+id){
+    //         console.log(index);
+    //         //console.log(chosenProducts);
+    //         i++
+    //         chosenProducts.splice(index,1);
+    //     }
+    // })
 
 
-    function decrease(id,chosenProducts,cartListNode){
+    //     console.log(`i= ${i}`);
 
-        const index=chosenProducts.findIndex(p=>p.id===+id);
-        //console.log(index);
 
-        chosenProducts.splice(index,1);
 
         //console.log(chosenProducts);
 
-        showCard(chosenProducts,cartListNode);
+    // newProducts=chosenProducts.filter(p=>p.id!==+id);
+    // chosenProducts=newProducts;
+    //console.log(chosenProducts);
 
-    }
+   
+
+    showCard(chosenProducts,cartListNode);
+
+    //return chosenProducts;
     
-
-    // function remove(id,chosenProducts,cartListNode){
-
-    //     const newProducts=chosenProducts.filter(p=>p.id!==+id);
-    //     chosenProducts=newProducts;
-
-    //     console.log(chosenProducts);
-
-    //     showCard(chosenProducts,cartListNode);
-    // }
-
-
-
-
-
-
 }
 
 
@@ -234,5 +288,10 @@ async function handleEvent2(event){
 
 
 
+
+
+
 document.addEventListener("DOMContentLoaded",render);
+
+
 
