@@ -161,6 +161,9 @@ async function createFinalCard(product,qty,cartListNode){
 
 
         cartListNode.appendChild(cardEle)
+
+        calculatedPrice(chosenProducts,price,totalPriceNode)
+
     }
 
 
@@ -279,6 +282,10 @@ async function remove(id,chosenProducts,cartListNode){
 }
 
 
+function calculatedPrice(chosenProducts,price,totalPriceNode){
+    const total=chosenProducts.reduce((acc,cur)=>acc+=cur.price,0);
+    totalPriceNode.innerText="$ "+total;
+}
 
 
 
