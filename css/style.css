@@ -12,29 +12,33 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  /* max-width: 1400px; */
+body{
+  max-width: 1400px;
   margin: auto;
 }
-header {
+
+header{
   color: var(--color-primary);
   padding: 30px 0;
+  text-align: center;
+  font-size: larger;
 }
 
 main{
   display: flex;
   justify-content: space-between;
   margin-top: 80px;
+  padding: 0 20px;
 }
 
-#products {
+#products{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-right: 40px
 }
 
-#products > div {
+#products > div{
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -44,11 +48,11 @@ main{
   padding: 10px;
   margin-bottom: 40px;
 }
-#products img {
+#products img{
   width: 300px;
   border-radius: 25px;
 }
-#product-info {
+#product-info{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -60,22 +64,23 @@ main{
   margin-top: 30px;
 }
 
-#product-info h3 {
+#product-info h3{
   color: var(--color-primary);
   font-size: 1.3rem;
 }
 
-#product-info div {
+#product-info div{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#productinfo span {
+#productinfo span{
   font-size: 1.1rem;
   color: gray;
 }
-#product-info button {
+
+#product-info button{
   background-color: #fff;
   border: none;
   width: 40px;
@@ -88,13 +93,15 @@ main{
   box-shadow: rgba(149, 157, 165, 0.2) 0px 10px 20px;
   transition: all 0.2s ease-in;
 }
-#product-info button:hover {
+
+#product-info button:hover{
   background-color: var(--color-primary);
   color: #fff;
   border-radius: 40%;
 }
 
-#cart h3 {
+
+#cart h3{
   background-color: var(--color-primary);
   color: #fff;
   padding: 20px;
@@ -103,11 +110,12 @@ main{
   border-radius: 25px;
   margin-bottom: 30px;
 }
-#cart-list {
+
+#cart-list{
   width: 330px;
 }
 
-#cart-list h5 {
+#cart-list h5{
   color: var(--color-error);
   border: 2px solid var(--color-error);
   padding: 40px 0;
@@ -116,16 +124,18 @@ main{
   font-size: 1.3rem;
   margin-bottom: 30px;
 }
-#total-price {
+
+#total-price{
   border: 2px solid var(--color-secondary);
   padding: 20px;
   border-radius: 20px;
   color: gray;
 }
-#total-price span {
+
+#total-price span{
   color: var(--color-primary);
 }
-#cart-list > div {
+#cart-list > div{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,30 +144,35 @@ main{
   margin-bottom: 20px;
   border-radius: 25px;
 }
-#cart-list img {
+
+#cart-list img{
   width: 60px;
   border-radius: 50%;
 }
 
-#cart-info {
+#cart-info{
   text-align: center;
 }
-#cart-info h4 {
+
+#cart-info h4{
   color: var(--color-primary);
   margin-bottom: 10px;
   font-size: 1.2rem;
 }
-#cart-info p {
+
+#cart-info p{
   color: gray;
 }
-#cart-control div {
+
+#cart-control div{
   width: 90px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
-#cart-control div button {
+
+#cart-control div button{
   background-color: var(--color-secondary);
   border: none;
   width: 30px;
@@ -168,12 +183,14 @@ main{
   cursor: pointer;
   transition: 0.2s all ease-in;
 }
-#cart-control div button:hover {
+
+#cart-control div button:hover{
   background-color: var(--color-primary);
   color: #fff;
   border-radius: 40%;
 }
-#cart-control > button {
+
+#cart-control > button{
   background-color: #fff;
   border: 1px solid var(--color-error);
   border-radius: 5px;
@@ -185,10 +202,8 @@ main{
   transition: 0.2s all ease-in;
 }
 
-#cart-control > button:hover {
+#cart-control > button:hover{
   background-color: var(--color-error);
   color: #fff;
 }
 
-
-  
